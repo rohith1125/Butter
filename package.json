@@ -1,0 +1,45 @@
+{
+    "name": "DarkButter",
+    "displayName": "Butter",
+    "description": "Adaptation of FireFly Pro",
+    "publisher": "SaiRohith",
+    "version": "0.0.8",
+    "icon": "butter.png",
+    "galleryBanner": {
+        "color": "#0e1421",
+        "theme": "dark"
+      },
+    "keywords": [
+        "VSCode",
+        "Themes",
+        "IronMan",
+        "Avengers",
+        "Marvel",
+        "One Dark Pro",
+        "Github Dark Theme",
+        "Sublime Dark Material Theme",
+        "SynthWave",
+        "Palenight",
+        "Monokai",
+        "Shades of Purple",
+        "Dracula",
+        "Outrun",
+        "Night Owl",
+        "One Dark Pro"
+      ],
+    "engines": {
+        "vscode": "^1.55.0"
+    },
+    "categories": [
+        "Themes"
+    ],
+    "contributes": {
+        "themes": [
+            {
+                "label": "DarkButter",
+                "uiTheme": "vs-dark",
+                "path": "./themes/DarkButter-color-theme.json"
+            }
+        ]
+    }
+}
