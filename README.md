@@ -122,8 +122,6 @@ Theme Created by -- Rohith
 # [IronMan](https://marketplace.visualstudio.com/items?itemName=SaiRohith.Jarvis)
 # [Butter](https://marketplace.visualstudio.com/items?itemName=SaiRohith.DarkButter)
 
-  You can catch on :  [GITHUB](https://github.com/rohith1125)
-
 
 
 
