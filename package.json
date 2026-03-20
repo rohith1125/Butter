@@ -1,45 +1,120 @@
 {
-    "name": "DarkButter",
-    "displayName": "Butter",
-    "description": "Adaptation of FireFly Pro",
-    "publisher": "SaiRohith",
-    "version": "0.0.8",
-    "icon": "butter.png",
-    "galleryBanner": {
-        "color": "#0e1421",
-        "theme": "dark"
+  "name": "butter",
+  "displayName": "Butter",
+  "description": "A warm golden theme with a cozy companion. Easy on your eyes, hard to uninstall.",
+  "version": "2.0.0",
+  "publisher": "SaiRohith",
+  "license": "MIT",
+  "icon": "butter.png",
+  "galleryBanner": {
+    "color": "#1e1b12",
+    "theme": "dark"
+  },
+  "homepage": "https://github.com/rohithsaai/butter",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rohithsaai/butter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rohithsaai/butter/issues"
+  },
+  "keywords": [
+    "theme",
+    "color theme",
+    "warm",
+    "golden",
+    "amber",
+    "cozy",
+    "dark theme",
+    "light theme",
+    "butter",
+    "gruvbox",
+    "rose pine",
+    "catppuccin",
+    "night owl"
+  ],
+  "categories": [
+    "Themes",
+    "Other"
+  ],
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Butter Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/butter-dark.json"
       },
-    "keywords": [
-        "VSCode",
-        "Themes",
-        "IronMan",
-        "Avengers",
-        "Marvel",
-        "One Dark Pro",
-        "Github Dark Theme",
-        "Sublime Dark Material Theme",
-        "SynthWave",
-        "Palenight",
-        "Monokai",
-        "Shades of Purple",
-        "Dracula",
-        "Outrun",
-        "Night Owl",
-        "One Dark Pro"
-      ],
-    "engines": {
-        "vscode": "^1.55.0"
-    },
-    "categories": [
-        "Themes"
+      {
+        "label": "Butter Light",
+        "uiTheme": "vs",
+        "path": "./themes/butter-light.json"
+      },
+      {
+        "label": "Butter Soft",
+        "uiTheme": "vs-dark",
+        "path": "./themes/butter-soft.json"
+      }
     ],
-    "contributes": {
-        "themes": [
-            {
-                "label": "DarkButter",
-                "uiTheme": "vs-dark",
-                "path": "./themes/DarkButter-color-theme.json"
-            }
-        ]
+    "commands": [
+      {
+        "command": "butter.switchTheme",
+        "title": "Switch Butter Theme",
+        "category": "Butter"
+      },
+      {
+        "command": "butter.toggleCompanion",
+        "title": "Toggle Butter Bear",
+        "category": "Butter"
+      },
+      {
+        "command": "butter.companionMood",
+        "title": "Show Bear's Mood",
+        "category": "Butter"
+      }
+    ],
+    "configuration": {
+      "title": "Butter",
+      "properties": {
+        "butter.companion.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable the Butter Bear companion in the status bar."
+        },
+        "butter.companion.activityTimeout": {
+          "type": "number",
+          "default": 30000,
+          "description": "Milliseconds of inactivity before Butter Bear enters the resting state."
+        },
+        "butter.companion.morningGreeting": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show a morning greeting notification on the first activation of each day."
+        },
+        "butter.companion.showMessages": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show state-change notifications from Butter Bear."
+        }
+      }
     }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "publish": "vsce publish",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "^2.22.0",
+    "typescript": "^5.3.0"
+  }
 }
