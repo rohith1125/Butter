@@ -1,8 +1,8 @@
 {
   "name": "butter-bear",
   "displayName": "Butter Bear",
-  "description": "A warm golden theme with a cozy companion. Easy on your eyes, hard to uninstall.",
-  "version": "2.0.0",
+  "description": "A warm golden theme + a growing bear companion. Feed it, watch it grow from cub to legend.",
+  "version": "2.1.0",
   "publisher": "butterdev",
   "license": "MIT",
   "icon": "butter.png",
@@ -63,6 +63,16 @@
       }
     ],
     "commands": [
+      {
+        "command": "butter.feedBear",
+        "title": "Feed the Bear 🍯",
+        "category": "Butter"
+      },
+      {
+        "command": "butter.bearStats",
+        "title": "Bear Stats",
+        "category": "Butter"
+      },
       {
         "command": "butter.switchTheme",
         "title": "Switch Butter Theme",
