@@ -113,6 +113,11 @@ export class Companion implements vscode.Disposable {
         const chars = e.contentChanges.reduce((s, c) => s + c.text.length, 0);
         if (chars > 0) {
           const { leveledUp, newStage } = this.bearState.addXP(Math.ceil(chars / 10));
+          if (this.bearState.isPrestigeReady) {
+            const { newPrestigeLevel } = this.bearState.prestige();
+            this.triggerPrestige(newPrestigeLevel);
+            return;
+          }
           if (leveledUp && newStage) {
             this.triggerLevelUp(newStage);
             return;
@@ -142,6 +147,11 @@ export class Companion implements vscode.Disposable {
         this.bearState.addHoney(1);
 
         const { leveledUp, newStage } = this.bearState.addXP(10);
+        if (this.bearState.isPrestigeReady) {
+          const { newPrestigeLevel } = this.bearState.prestige();
+          this.triggerPrestige(newPrestigeLevel);
+          return;
+        }
         if (leveledUp && newStage) { this.triggerLevelUp(newStage); return; }
 
         if (errorCount === 0) {
@@ -215,12 +225,29 @@ export class Companion implements vscode.Disposable {
     const config = vscode.workspace.getConfiguration('butter');
     if (config.get('companion.showMessages', true)) {
       vscode.window.showInformationMessage(
-        `${newStage.emoji} Your bear grew into a ${newStage.name}!\n"${newStage.personality}"`
+        `${this.bearState.stageEmoji} Your bear grew into a ${newStage.name}!\n"${newStage.personality}"`
       );
     }
     setTimeout(() => {
       if (this.activityState === 'levelup') { this.transitionTo('idle'); }
     }, 6_000);
+  }
+
+  private triggerPrestige(level: number): void {
+    this.transitionTo('levelup');
+    const stars = '🌟'.repeat(Math.min(level, 3));
+    const msgs = [
+      `${stars} PRESTIGE ${level}! Your bear reset to Cub — but carries the stars of a legend.`,
+      `${stars} The bear transcended. Prestige ${level} achieved. Starting over... stronger.`,
+      `${stars} Legend → Cub. Prestige ${level}. The cycle continues.`,
+    ];
+    const config = vscode.workspace.getConfiguration('butter');
+    if (config.get('companion.showMessages', true)) {
+      vscode.window.showInformationMessage(msgs[Math.floor(Math.random() * msgs.length)]);
+    }
+    setTimeout(() => {
+      if (this.activityState === 'levelup') { this.transitionTo('idle'); }
+    }, 8_000);
   }
 
   transitionTo(next: ActivityState): void {

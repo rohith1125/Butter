@@ -102,7 +102,7 @@ export function activate(context: vscode.ExtensionContext): void {
       const hungerBar = makeBar(bear.hunger, 100, 10);
 
       const lines = [
-        `${stage.emoji}  ${stage.name}  (Level ${stage.level} / ${GROWTH_STAGES.length - 1})`,
+        `${bear.stageEmoji}  ${stage.name}  (Level ${stage.level} / ${GROWTH_STAGES.length - 1})`,
         `"${stage.personality}"`,
         ``,
         `Progress to ${nextStage ? nextStage.name + ' ' + nextStage.emoji : 'MAX'}`,
@@ -141,7 +141,11 @@ export function activate(context: vscode.ExtensionContext): void {
 
     // ─── Switch Theme ───────────────────────────────────────────────────────
     vscode.commands.registerCommand('butter.switchTheme', async () => {
-      const themes = ['Butter Dark', 'Butter Light', 'Butter Soft'];
+      const themes = [
+        'Butter Dark', 'Butter Light', 'Butter Soft',
+        'Butter Midnight', 'Butter Mocha', 'Butter Storm',
+        'Butter Rose', 'Butter Forest', 'Butter AMOLED', 'Butter HC'
+      ];
       const current = vscode.workspace
         .getConfiguration()
         .get<string>('workbench.colorTheme');

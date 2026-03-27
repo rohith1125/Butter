@@ -49,7 +49,7 @@ export const GROWTH_STAGES: GrowthStage[] = [
     name: 'Legend Bear',
     emoji: '👑🐻',
     xpRequired: 3700,
-    xpToNext: Infinity,
+    xpToNext: 5000,
     personality: 'Transcended. Ships clean code. Never breaks main. A myth.',
   },
 ];
@@ -67,6 +67,7 @@ export interface BearStateData {
   lastActiveTime: number;     // epoch ms
   hunger: number;             // 0–100, 100 = full, drains over time
   sessionKeystrokes: number;
+  prestigeLevel: number;
 }
 
 export const DEFAULT_STATE: BearStateData = {
@@ -80,6 +81,7 @@ export const DEFAULT_STATE: BearStateData = {
   lastActiveTime: Date.now(),
   hunger: 80,
   sessionKeystrokes: 0,
+  prestigeLevel: 0,
 };
 
 const STATE_KEY = 'butter.bearState';
@@ -123,9 +125,7 @@ export class BearStateManager {
     return this.stage.xpToNext;
   }
 
-  get isMaxLevel(): boolean {
-    return this.stage.level === GROWTH_STAGES.length - 1;
-  }
+  get isMaxLevel(): boolean { return false; }
 
   get isHungry(): boolean {
     return this.data.hunger < 30;
@@ -133,6 +133,26 @@ export class BearStateManager {
 
   get isStarving(): boolean {
     return this.data.hunger < 10;
+  }
+
+  get prestigeLevel(): number { return this.data.prestigeLevel || 0; }
+
+  get isPrestigeReady(): boolean {
+    return this.stage.level === GROWTH_STAGES.length - 1 &&
+      this.data.xp >= GROWTH_STAGES[GROWTH_STAGES.length - 1].xpRequired + 5000;
+  }
+
+  get stageEmoji(): string {
+    const level = this.data.prestigeLevel || 0;
+    const stars = '🌟'.repeat(Math.min(level, 3));
+    return stars + this.stage.emoji;
+  }
+
+  prestige(): { newPrestigeLevel: number } {
+    this.data.prestigeLevel = (this.data.prestigeLevel || 0) + 1;
+    this.data.xp = 0;
+    this.save();
+    return { newPrestigeLevel: this.data.prestigeLevel };
   }
 
   // ─── Mutations ──────────────────────────────────────────────────────────────
