@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Butter Bear — VS Code Theme + Companion</title>
+  <meta name="description" content="10 warm golden VS Code themes + a bear that lives in your status bar. Feed it. Watch it grow. Prestige." />
+  <style>
+    :root {
+      --bg: #1e1b12;
+      --bg2: #252015;
+      --bg3: #2a2416;
+      --border: #4a4438;
+      --fg: #e8dfc8;
+      --fg2: #c8bc9c;
+      --fg3: #8a8070;
+      --amber: #c9a227;
+      --amber2: #e8c870;
+      --orange: #d4956a;
+      --green: #7ab860;
+      --red: #c85050;
+      --blue: #60a8b0;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px;
+      position: relative;
+      background: radial-gradient(ellipse at 50% 0%, #2e2610 0%, var(--bg) 60%);
+    }
+
+    .bear-big {
+      font-size: 100px;
+      line-height: 1;
+      animation: float 4s ease-in-out infinite;
+      cursor: pointer;
+      user-select: none;
+      filter: drop-shadow(0 0 40px #c9a22740);
+      transition: filter 0.3s;
+    }
+    .bear-big:hover { filter: drop-shadow(0 0 60px #c9a22780); }
+    .bear-big:active { transform: scale(0.92); }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      margin: 24px 0 12px;
+      background: linear-gradient(135deg, var(--amber2), var(--amber), var(--orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero .tagline {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--fg2);
+      max-width: 520px;
+      margin: 0 auto 40px;
+    }
+
+    .cta-group { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--amber);
+      color: #16130d;
+      box-shadow: 0 4px 24px #c9a22740;
+    }
+    .btn-primary:hover { box-shadow: 0 8px 32px #c9a22770; }
+    .btn-secondary {
+      background: var(--bg2);
+      color: var(--fg);
+      border: 1px solid var(--border);
+    }
+
+    .status-bar-preview {
+      margin-top: 48px;
+      background: #13110b;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 20px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 13px;
+      color: var(--fg2);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      animation: statusCycle 8s ease-in-out infinite;
+    }
+    .status-bear { color: var(--amber); font-size: 16px; }
+
+    @keyframes statusCycle {
+      0%,15%  { opacity: 1; }
+      20%,35% { opacity: 0.3; }
+      40%,55% { opacity: 1; }
+      60%,75% { opacity: 0.3; }
+      80%,100%{ opacity: 1; }
+    }
+
+    /* ── SECTION ── */
+    section {
+      padding: 80px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      color: var(--fg);
+      margin-bottom: 16px;
+    }
+
+    .subtitle {
+      color: var(--fg2);
+      font-size: 1.05rem;
+      margin-bottom: 48px;
+      max-width: 600px;
+    }
+
+    /* ── THEME SWITCHER ── */
+    .theme-switcher { width: 100%; }
+
+    .theme-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .theme-tab {
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      color: var(--fg2);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .theme-tab:hover { border-color: var(--amber); color: var(--fg); }
+    .theme-tab.active {
+      background: var(--bg3);
+      border-color: var(--amber);
+      color: var(--amber);
+    }
+
+    .code-window {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 60px #00000060;
+      transition: all 0.3s ease;
+    }
+
+    .code-titlebar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: #13110b;
+    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-red { background: #ff5f57; }
+    .dot-yellow { background: #febc2e; }
+    .dot-green { background: #28c840; }
+    .file-name { font-family: monospace; font-size: 12px; color: var(--fg3); margin-left: 8px; }
+
+    .code-body {
+      padding: 24px;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 14px;
+      line-height: 1.8;
+      overflow-x: auto;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .ln { color: var(--fg3); user-select: none; margin-right: 20px; font-size: 12px; }
+    .kw { font-weight: 600; }
+    .cm { font-style: italic; }
+
+    /* ── BEAR SECTION ── */
+    .bear-stages {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 32px 0;
+    }
+
+    .stage-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      flex: 1;
+      min-width: 100px;
+      transition: all 0.2s;
+      cursor: default;
+    }
+    .stage-card:hover {
+      border-color: var(--amber);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px #c9a22720;
+    }
+    .stage-card .emoji { font-size: 36px; display: block; margin-bottom: 8px; }
+    .stage-card .name { font-size: 12px; color: var(--fg2); font-weight: 600; }
+    .stage-card .xp { font-size: 11px; color: var(--fg3); margin-top: 4px; }
+
+    .arrow { color: var(--amber); font-size: 20px; flex-shrink: 0; }
+
+    .prestige-box {
+      background: linear-gradient(135deg, #2a2010, #1e1b12);
+      border: 1px solid var(--amber);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-top: 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .prestige-icon { font-size: 48px; }
+    .prestige-text h3 { color: var(--amber); font-size: 1.1rem; margin-bottom: 6px; }
+    .prestige-text p { color: var(--fg2); font-size: 14px; }
+
+    /* ── HONEY MECHANIC ── */
+    .mechanic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .mechanic-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: border-color 0.2s;
+    }
+    .mechanic-card:hover { border-color: var(--amber); }
+    .mechanic-card .icon { font-size: 32px; margin-bottom: 12px; }
+    .mechanic-card h3 { font-size: 15px; margin-bottom: 6px; color: var(--fg); }
+    .mechanic-card p { font-size: 13px; color: var(--fg2); }
+
+    /* ── INSTALL ── */
+    .install-section {
+      background: linear-gradient(135deg, #201c10, #1a1812);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 60px 40px;
+      text-align: center;
+    }
+
+    .install-bear { font-size: 64px; margin-bottom: 16px; animation: float 3s ease-in-out infinite; }
+
+    .code-block {
+      background: #13110b;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 24px;
+      font-family: monospace;
+      font-size: 14px;
+      color: var(--amber2);
+      display: inline-block;
+      margin: 24px 0;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      position: relative;
+    }
+    .code-block:hover { border-color: var(--amber); }
+    .code-block::after {
+      content: 'click to copy';
+      position: absolute;
+      top: -22px;
+      right: 8px;
+      font-size: 10px;
+      color: var(--fg3);
+      font-family: sans-serif;
+    }
+
+    /* ── DARCULA PRINCIPLES ── */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .principle {
+      background: var(--bg2);
+      border-left: 3px solid var(--amber);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 20px;
+    }
+    .principle h3 { font-size: 14px; color: var(--amber); margin-bottom: 6px; }
+    .principle p { font-size: 13px; color: var(--fg2); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      color: var(--fg3);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--amber); text-decoration: none; }
+
+    /* ── FEED MINI GAME ── */
+    .feed-game {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      text-align: center;
+      margin-top: 32px;
+    }
+    .feed-bear { font-size: 72px; transition: transform 0.1s; cursor: pointer; display: inline-block; }
+    .feed-bear:active { transform: scale(0.85); }
+    .honey-bar {
+      width: 100%;
+      max-width: 300px;
+      height: 12px;
+      background: var(--bg3);
+      border-radius: 6px;
+      margin: 16px auto;
+      overflow: hidden;
+    }
+    .honey-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--amber), var(--amber2));
+      border-radius: 6px;
+      transition: width 0.3s ease;
+      width: 40%;
+    }
+    .honey-count { font-size: 24px; color: var(--amber); font-weight: 700; }
+    .honey-label { font-size: 13px; color: var(--fg3); margin-top: 4px; }
+    .feed-btn {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 10px 24px;
+      background: var(--amber);
+      color: #16130d;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-size: 14px;
+      transition: transform 0.1s, box-shadow 0.2s;
+    }
+    .feed-btn:hover { box-shadow: 0 4px 16px #c9a22760; transform: translateY(-1px); }
+    .feed-btn:active { transform: scale(0.95); }
+    .float-honey {
+      position: fixed;
+      pointer-events: none;
+      font-size: 22px;
+      animation: floatUp 1s ease-out forwards;
+      z-index: 999;
+    }
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-80px) scale(1.4); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .bear-stages { gap: 4px; }
+      .stage-card { min-width: 80px; padding: 14px 8px; }
+      .stage-card .emoji { font-size: 28px; }
+      .install-section { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="bear-big" id="heroBear" title="Click me!">🧈🐻</div>
+  <h1>Butter Bear</h1>
+  <p class="tagline">10 warm golden VS Code themes + a bear that lives in your status bar. Feed it. Watch it grow. Prestige.</p>
+  <div class="cta-group">
+    <a class="btn btn-primary" href="vscode:extension/butterdev.butter-bear">
+      ⬇️ Install for VS Code
+    </a>
+    <a class="btn btn-secondary" href="https://github.com/rohith1125/Butter" target="_blank">
+      ★ GitHub
+    </a>
+  </div>
+  <div class="status-bar-preview">
+    <span class="status-bear">🐻</span>
+    <span id="statusMsg">In the zone.</span>
+    <span style="margin-left:auto;color:var(--fg3)">⌨️  🍯 12</span>
+  </div>
+</div>
+
+<!-- ── THEMES ── -->
+<section>
+  <div class="section-label">Themes</div>
+  <h2>10 themes. One identity.</h2>
+  <p class="subtitle">Every variant keeps amber as the keyword color — the Butter Bear thread. Darcula-calibrated for all-day comfort.</p>
+
+  <div class="theme-switcher">
+    <div class="theme-tabs" id="themeTabs"></div>
+    <div class="code-window" id="codeWindow">
+      <div class="code-titlebar">
+        <div class="dot dot-red"></div>
+        <div class="dot dot-yellow"></div>
+        <div class="dot dot-green"></div>
+        <span class="file-name">app.ts</span>
+      </div>
+      <div class="code-body" id="codeBody"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BEAR ── -->
+<section>
+  <div class="section-label">The Companion</div>
+  <h2>A bear that grows with you.</h2>
+  <p class="subtitle">Five stages. Then prestige. The cycle continues.</p>
+
+  <div class="bear-stages">
+    <div class="stage-card">
+      <span class="emoji">🐣</span>
+      <div class="name">Newborn Cub</div>
+      <div class="xp">0 XP</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="stage-card">
+      <span class="emoji">🐻</span>
+      <div class="name">Tiny Cub</div>
+      <div class="xp">200 XP</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="stage-card">
+      <span class="emoji">🧸</span>
+      <div class="name">Young Bear</div>
+      <div class="xp">700 XP</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="stage-card">
+      <span class="emoji">🐻‍❄️</span>
+      <div class="name">Adult Bear</div>
+      <div class="xp">1700 XP</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="stage-card" style="border-color: var(--amber)">
+      <span class="emoji">👑🐻</span>
+      <div class="name">Legend Bear</div>
+      <div class="xp" style="color:var(--amber)">3700 XP</div>
+    </div>
+  </div>
+
+  <div class="prestige-box">
+    <div class="prestige-icon">🌟</div>
+    <div class="prestige-text">
+      <h3>Prestige System</h3>
+      <p>Hit Legend and keep coding. At 8700 XP total your bear resets to Cub — with a 🌟 star. Hit legend again → 🌟🌟. Then 🌟🌟🌟. The cycle never ends.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── MINI GAME ── -->
+<section>
+  <div class="section-label">Try It</div>
+  <h2>Feed the bear.</h2>
+  <p class="subtitle">In VS Code, honey is earned by coding. Here, you can just click.</p>
+
+  <div class="feed-game">
+    <div class="feed-bear" id="gameBear">🐣</div>
+    <div class="honey-count" id="honeyCount">🍯 10</div>
+    <div class="honey-label">honey</div>
+    <div class="honey-bar"><div class="honey-fill" id="xpBar"></div></div>
+    <div style="font-size:12px;color:var(--fg3);margin-bottom:8px" id="xpLabel">0 / 200 XP — Newborn Cub</div>
+    <button class="feed-btn" id="feedBtn">🍯 Feed (+1 honey)</button>
+  </div>
+</section>
+
+<!-- ── MECHANICS ── -->
+<section>
+  <div class="section-label">Mechanics</div>
+  <h2>Earn while you code.</h2>
+  <p class="subtitle">Everything you do earns XP and honey. The bear never judges idle time.</p>
+
+  <div class="mechanic-grid">
+    <div class="mechanic-card">
+      <div class="icon">⌨️</div>
+      <h3>Keystrokes</h3>
+      <p>Every 50 keystrokes earns 1 honey. XP accrues per character typed.</p>
+    </div>
+    <div class="mechanic-card">
+      <div class="icon">💾</div>
+      <h3>Saving</h3>
+      <p>Each save earns 1 honey + 10 XP. Clean saves (zero errors) trigger a celebration.</p>
+    </div>
+    <div class="mechanic-card">
+      <div class="icon">🔧</div>
+      <h3>Fixing Errors</h3>
+      <p>Each error fixed earns 2 honey + 25 XP. The bear appreciates good debugging.</p>
+    </div>
+    <div class="mechanic-card">
+      <div class="icon">🍯</div>
+      <h3>Feeding</h3>
+      <p>Spend honey for XP. 3× multiplier when starving. Keeps hunger up so the bear stays happy.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── PHILOSOPHY ── -->
+<section>
+  <div class="section-label">Design</div>
+  <h2>"Does this hurt after four hours?"</h2>
+  <p class="subtitle">Every Butter theme follows four principles from JetBrains' Darcula — the most-loved dark theme in professional IDEs.</p>
+
+  <div class="principles-grid">
+    <div class="principle">
+      <h3>Never pure black</h3>
+      <p>Warm-tinted medium-dark backgrounds reduce eye strain. Pure black causes "halation" — text appears to glow on dark backgrounds.</p>
+    </div>
+    <div class="principle">
+      <h3>Never pure white text</h3>
+      <p>Cream/muted foreground at ~5.5:1 contrast. Passes WCAG AA without burning your eyes on late nights.</p>
+    </div>
+    <div class="principle">
+      <h3>Functionally distinct syntax</h3>
+      <p>Each token type gets its own color family. Your brain learns the pattern — reading speed increases over time.</p>
+    </div>
+    <div class="principle">
+      <h3>Muted base, vivid accents</h3>
+      <p>Desaturated backgrounds let amber syntax pop without neon glare. AMOLED and HC are intentional exceptions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── INSTALL ── -->
+<section>
+  <div class="install-section">
+    <div class="install-bear">🧈🐻</div>
+    <h2 style="margin-bottom:12px">Ready to install?</h2>
+    <p style="color:var(--fg2);max-width:400px;margin:0 auto">Search "Butter Bear" in the VS Code Extensions panel, or run:</p>
+    <div class="code-block" onclick="copyInstall(this)">
+      code --install-extension butterdev.butter-bear
+    </div>
+    <br/>
+    <div class="cta-group" style="justify-content:center">
+      <a class="btn btn-primary" href="vscode:extension/butterdev.butter-bear">⬇️ Install for VS Code</a>
+      <a class="btn btn-secondary" href="https://github.com/rohith1125/Butter" target="_blank">★ GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Made with 🧈 by <a href="https://github.com/rohith1125" target="_blank">rohith1125</a> ·
+  <a href="https://github.com/rohith1125/Butter" target="_blank">Open Source</a> ·
+  MIT License
+</footer>
+
+<script>
+// ── THEME DATA ──
+const themes = [
+  {
+    id: 'dark', label: '🌑 Dark', dot: '#c9a227',
+    bg: '#1e1b12', bg2: '#252015', fg: '#e8dfc8', fg2: '#8a8070',
+    kw: '#c47c3a', str: '#d4a843', fn: '#e8c870', cls: '#d4956a', cm: '#6a6050', num: '#e8c84a',
+  },
+  {
+    id: 'light', label: '☀️ Light', dot: '#b07800',
+    bg: '#fdf6e3', bg2: '#f5edd0', fg: '#3d2f00', fg2: '#a09070',
+    kw: '#b07800', str: '#c07000', fn: '#7a6000', cls: '#8a5020', cm: '#a09070', num: '#b07000',
+  },
+  {
+    id: 'soft', label: '🌙 Soft', dot: '#b09060',
+    bg: '#1a1814', bg2: '#222018', fg: '#c4b89a', fg2: '#5a5040',
+    kw: '#b09060', str: '#c8a850', fn: '#c0a060', cls: '#b08050', cm: '#5a5040', num: '#c8a040',
+  },
+  {
+    id: 'midnight', label: '🌃 Midnight', dot: '#e8a838',
+    bg: '#0d1117', bg2: '#161b22', fg: '#c9d1d9', fg2: '#484f58',
+    kw: '#e8a838', str: '#79c0ff', fn: '#d2a8ff', cls: '#ffa657', cm: '#3a4248', num: '#79c0ff',
+  },
+  {
+    id: 'mocha', label: '☕ Mocha', dot: '#d4a064',
+    bg: '#1e1208', bg2: '#261a0d', fg: '#e8d5b0', fg2: '#6a4e30',
+    kw: '#d4a064', str: '#f5c842', fn: '#e8c870', cls: '#c08040', cm: '#6a4e30', num: '#f5c842',
+  },
+  {
+    id: 'storm', label: '⛈️ Storm', dot: '#f0c060',
+    bg: '#0d1626', bg2: '#1a2535', fg: '#c0d8f0', fg2: '#3a5068',
+    kw: '#f0c060', str: '#9ecbff', fn: '#c792ea', cls: '#ffa657', cm: '#3a5068', num: '#9ecbff',
+  },
+  {
+    id: 'rose', label: '🌸 Rose', dot: '#e8a838',
+    bg: '#1e1015', bg2: '#261520', fg: '#f0c8d0', fg2: '#6a4050',
+    kw: '#e8a838', str: '#f5a0c0', fn: '#dba0c0', cls: '#c78080', cm: '#6a4050', num: '#f5a0c0',
+  },
+  {
+    id: 'forest', label: '🌲 Forest', dot: '#f0c060',
+    bg: '#0d1a0f', bg2: '#142018', fg: '#c8e0c0', fg2: '#406040',
+    kw: '#f0c060', str: '#80c080', fn: '#a8d080', cls: '#70a868', cm: '#406040', num: '#80c080',
+  },
+  {
+    id: 'amoled', label: '📱 AMOLED', dot: '#ffa500',
+    bg: '#000000', bg2: '#0d0d0d', fg: '#ffe0a0', fg2: '#555555',
+    kw: '#ffa500', str: '#ffcc66', fn: '#cc88ff', cls: '#ff9944', cm: '#555555', num: '#ffcc66',
+  },
+  {
+    id: 'hc', label: '⬛ HC', dot: '#ffcc00',
+    bg: '#000000', bg2: '#0a0a0a', fg: '#ffffff', fg2: '#888888',
+    kw: '#ffcc00', str: '#ffaa00', fn: '#00ff88', cls: '#ff88cc', cm: '#888888', num: '#ffaa00',
+  },
+];
+
+let activeTheme = themes[0];
+
+function renderCode(t) {
+  return `<code>
+<span class="ln">1</span><span style="color:${t.cm}" class="cm">// Butter Bear — ${t.id} theme</span>
+<span class="ln">2</span><span style="color:${t.kw}" class="kw">import</span> <span style="color:${t.fg}">{ BearCompanion }</span> <span style="color:${t.kw}" class="kw">from</span> <span style="color:${t.str}">'butter-bear'</span><span style="color:${t.fg}">;</span>
+<span class="ln">3</span>
+<span class="ln">4</span><span style="color:${t.kw}" class="kw">const</span> <span style="color:${t.fn}">bear</span> <span style="color:${t.fg}">=</span> <span style="color:${t.kw}" class="kw">new</span> <span style="color:${t.cls}">BearCompanion</span><span style="color:${t.fg}">({</span>
+<span class="ln">5</span>  <span style="color:${t.fg2}">theme</span><span style="color:${t.fg}">:</span>  <span style="color:${t.str}">'${t.id}'</span><span style="color:${t.fg}">,</span>
+<span class="ln">6</span>  <span style="color:${t.fg2}">honey</span><span style="color:${t.fg}">:</span>  <span style="color:${t.num}">42</span><span style="color:${t.fg}">,</span>
+<span class="ln">7</span>  <span style="color:${t.fg2}">prestige</span><span style="color:${t.fg}">:</span> <span style="color:${t.kw}" class="kw">true</span><span style="color:${t.fg}">,</span>
+<span class="ln">8</span><span style="color:${t.fg}">});</span>
+<span class="ln">9</span>
+<span class="ln">10</span><span style="color:${t.cm}" class="cm">// Feed it. Watch it grow.</span>
+<span class="ln">11</span><span style="color:${t.fn}">bear</span><span style="color:${t.fg}">.</span><span style="color:${t.fn}">feed</span><span style="color:${t.fg}">(</span><span style="color:${t.num}">3</span><span style="color:${t.fg}">);</span>       <span style="color:${t.cm}" class="cm">// 🍯🍯🍯</span>
+<span class="ln">12</span><span style="color:${t.fn}">bear</span><span style="color:${t.fg}">.</span><span style="color:${t.fn}">prestige</span><span style="color:${t.fg}">();    </span><span style="color:${t.cm}" class="cm">// 🌟 Legend → Cub</span>
+</code>`;
+}
+
+function applyTheme(t) {
+  activeTheme = t;
+  const body = document.getElementById('codeBody');
+  const win = document.getElementById('codeWindow');
+  body.style.background = t.bg;
+  body.style.color = t.fg;
+  win.style.borderColor = t.dot + '60';
+  body.innerHTML = renderCode(t);
+  document.querySelectorAll('.theme-tab').forEach(el => {
+    el.classList.toggle('active', el.dataset.id === t.id);
+  });
+}
+
+// Build tabs
+const tabContainer = document.getElementById('themeTabs');
+themes.forEach(t => {
+  const tab = document.createElement('button');
+  tab.className = 'theme-tab';
+  tab.dataset.id = t.id;
+  tab.innerHTML = `<span style="width:8px;height:8px;border-radius:50%;background:${t.dot};display:inline-block"></span> ${t.label}`;
+  tab.onclick = () => applyTheme(t);
+  tabContainer.appendChild(tab);
+});
+applyTheme(themes[0]);
+
+// ── HERO STATUS BAR ──
+const statusMessages = [
+  'In the zone.', 'Keep going!', 'Saved! ✨', '*happy wiggle*',
+  'Build passing 🎉', 'No errors. Dreamy.', 'Ship it!',
+];
+let msgIdx = 0;
+setInterval(() => {
+  msgIdx = (msgIdx + 1) % statusMessages.length;
+  document.getElementById('statusMsg').textContent = statusMessages[msgIdx];
+}, 2500);
+
+// ── HERO BEAR CLICK ──
+const heroBear = document.getElementById('heroBear');
+const bearEmojis = ['🧈🐻', '🐻🍯', '✨🐻✨', '👑🐻', '🌟🐻'];
+let bearIdx = 0;
+heroBear.onclick = () => {
+  bearIdx = (bearIdx + 1) % bearEmojis.length;
+  heroBear.textContent = bearEmojis[bearIdx];
+  spawnHoney(heroBear.getBoundingClientRect().left + 40, heroBear.getBoundingClientRect().top + 20);
+};
+
+// ── MINI GAME ──
+const stages = [
+  { emoji: '🐣', name: 'Newborn Cub', xpNeeded: 200 },
+  { emoji: '🐻', name: 'Tiny Cub', xpNeeded: 500 },
+  { emoji: '🧸', name: 'Young Bear', xpNeeded: 1000 },
+  { emoji: '🐻‍❄️', name: 'Adult Bear', xpNeeded: 2000 },
+  { emoji: '👑🐻', name: 'Legend Bear', xpNeeded: 5000 },
+];
+const prestigeEmojis = ['🌟', '🌟🌟', '🌟🌟🌟'];
+
+let gameXP = 0, gameHoney = 10, gameStageIdx = 0, gamePrestige = 0, gameXPTotal = 0;
+const xpThresholds = [0, 200, 700, 1700, 3700];
+
+function getStageIdx(xp) {
+  for (let i = stages.length - 1; i >= 0; i--) {
+    if (xp >= xpThresholds[i]) return i;
+  }
+  return 0;
+}
+
+function updateGame() {
+  const stage = stages[gameStageIdx];
+  const stars = gamePrestige > 0 ? prestigeEmojis[Math.min(gamePrestige - 1, 2)] : '';
+  document.getElementById('gameBear').textContent = stars + stage.emoji;
+  document.getElementById('honeyCount').textContent = '🍯 ' + gameHoney;
+
+  const xpInStage = gameXPTotal - xpThresholds[gameStageIdx];
+  const xpNeeded = stage.xpNeeded;
+  const pct = Math.min((xpInStage / xpNeeded) * 100, 100);
+  document.getElementById('xpBar').style.width = pct + '%';
+  document.getElementById('xpLabel').textContent = `${xpInStage} / ${xpNeeded} XP — ${stars}${stage.name}`;
+}
+
+document.getElementById('feedBtn').onclick = function() {
+  gameHoney++;
+  const xpGain = 15;
+  gameXPTotal += xpGain;
+
+  // Check level up
+  const newIdx = getStageIdx(gameXPTotal);
+  if (newIdx > gameStageIdx) {
+    gameStageIdx = newIdx;
+    this.textContent = '🎉 Level Up! Keep feeding!';
+    setTimeout(() => { this.textContent = '🍯 Feed (+1 honey)'; }, 2000);
+  }
+
+  // Check prestige
+  if (gameStageIdx === stages.length - 1 && (gameXPTotal - xpThresholds[4]) >= 5000) {
+    gamePrestige++;
+    gameXPTotal = 0;
+    gameStageIdx = 0;
+    this.textContent = '🌟 PRESTIGE! Starting over...';
+    setTimeout(() => { this.textContent = '🍯 Feed (+1 honey)'; }, 3000);
+  }
+
+  spawnHoney(this.getBoundingClientRect().left + this.offsetWidth / 2, this.getBoundingClientRect().top);
+  updateGame();
+};
+
+function spawnHoney(x, y) {
+  const el = document.createElement('div');
+  el.className = 'float-honey';
+  el.textContent = '🍯';
+  el.style.left = x + 'px';
+  el.style.top = y + 'px';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1000);
+}
+
+updateGame();
+
+// ── COPY INSTALL ──
+function copyInstall(el) {
+  navigator.clipboard.writeText('code --install-extension butterdev.butter-bear');
+  el.style.borderColor = '#7ab860';
+  el.querySelector ? null : null;
+  const orig = el.innerHTML;
+  el.innerHTML = '✓ Copied!';
+  setTimeout(() => { el.innerHTML = orig; el.style.borderColor = ''; }, 2000);
+}
+</script>
+</body>
+</html>
