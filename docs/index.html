@@ -93,6 +93,92 @@
     .nav-links a:hover { color: var(--fg); background: var(--bg3); }
     .nav-right { display: flex; gap: 8px; align-items: center; }
 
+    /* ── INSTALL DROPDOWN ── */
+    .install-dropdown-wrap {
+      position: relative;
+    }
+    .install-dropdown-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .install-dropdown-btn .chevron {
+      font-size: 10px;
+      transition: transform 0.2s;
+      opacity: 0.7;
+    }
+    .install-dropdown-btn.open .chevron { transform: rotate(180deg); }
+
+    .install-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 280px;
+      background: var(--bg2);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,162,39,0.06);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-6px) scale(0.97);
+      pointer-events: none;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      z-index: 200;
+    }
+    .install-dropdown.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+    }
+    .dropdown-header {
+      padding: 12px 16px 8px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--fg3);
+      border-bottom: 1px solid var(--border);
+    }
+    .dropdown-editor {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 16px;
+      cursor: pointer;
+      transition: background 0.12s;
+      text-decoration: none;
+      border: none;
+      background: none;
+      width: 100%;
+      font-family: inherit;
+      color: var(--fg);
+    }
+    .dropdown-editor:hover { background: var(--bg3); }
+    .dropdown-editor:last-child { border-top: 1px solid var(--border); }
+    .de-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .de-info { text-align: left; }
+    .de-name { font-size: 13px; font-weight: 600; color: var(--fg); }
+    .de-sub { font-size: 11px; color: var(--fg3); margin-top: 1px; }
+    .de-action {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--amber);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .dropdown-editor.copied .de-action { color: var(--green); }
+
     /* ── BUTTONS ── */
     .btn {
       display: inline-flex;
@@ -747,7 +833,39 @@
     </div>
     <div class="nav-right">
       <a class="btn btn-ghost btn-sm" href="https://github.com/rohith1125/Butter" target="_blank">★ GitHub</a>
-      <a class="btn btn-primary btn-sm" href="vscode:extension/butterdev.butter-bear">Install Free</a>
+      <div class="install-dropdown-wrap">
+        <button class="btn btn-primary btn-sm install-dropdown-btn" id="navInstallBtn">
+          ⬇️ Install Free <span class="chevron">▼</span>
+        </button>
+        <div class="install-dropdown" id="navInstallDropdown">
+          <div class="dropdown-header">Choose your editor</div>
+          <button class="dropdown-editor" data-protocol="vscode:extension/butterdev.butter-bear" data-action="open">
+            <span class="de-icon">⌨️</span>
+            <span class="de-info"><div class="de-name">VS Code</div><div class="de-sub">Opens install directly</div></span>
+            <span class="de-action">Open →</span>
+          </button>
+          <button class="dropdown-editor" data-protocol="cursor:extension/butterdev.butter-bear" data-action="open">
+            <span class="de-icon">🖱️</span>
+            <span class="de-info"><div class="de-name">Cursor</div><div class="de-sub">Opens install directly</div></span>
+            <span class="de-action">Open →</span>
+          </button>
+          <button class="dropdown-editor" data-copy="kiro --install-extension butterdev.butter-bear" data-action="copy">
+            <span class="de-icon">⚡</span>
+            <span class="de-info"><div class="de-name">Kiro</div><div class="de-sub">Copy install command</div></span>
+            <span class="de-action">Copy</span>
+          </button>
+          <button class="dropdown-editor" data-protocol="vscodium:extension/butterdev.butter-bear" data-action="open">
+            <span class="de-icon">🧩</span>
+            <span class="de-info"><div class="de-name">VSCodium</div><div class="de-sub">Opens install directly</div></span>
+            <span class="de-action">Open →</span>
+          </button>
+          <a class="dropdown-editor" href="https://open-vsx.org/extension/butterdev/butter-bear" target="_blank" data-action="link">
+            <span class="de-icon">🌐</span>
+            <span class="de-info"><div class="de-name">Other editors</div><div class="de-sub">Open VSX listing</div></span>
+            <span class="de-action">Visit →</span>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
@@ -1228,6 +1346,45 @@ function copyInstall(el, text) {
   el.style.borderColor = 'var(--green)';
   setTimeout(() => { el.innerHTML = orig; el.style.borderColor = ''; }, 2000);
 }
+
+// ── INSTALL DROPDOWN ──
+const navInstallBtn = document.getElementById('navInstallBtn');
+const navInstallDropdown = document.getElementById('navInstallDropdown');
+
+navInstallBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  const open = navInstallDropdown.classList.toggle('open');
+  navInstallBtn.classList.toggle('open', open);
+});
+
+document.addEventListener('click', () => {
+  navInstallDropdown.classList.remove('open');
+  navInstallBtn.classList.remove('open');
+});
+
+navInstallDropdown.addEventListener('click', e => {
+  const btn = e.target.closest('.dropdown-editor[data-action]');
+  if (!btn) return;
+  const action = btn.dataset.action;
+
+  if (action === 'open') {
+    e.preventDefault();
+    window.location.href = btn.dataset.protocol;
+    navInstallDropdown.classList.remove('open');
+    navInstallBtn.classList.remove('open');
+  } else if (action === 'copy') {
+    e.preventDefault();
+    navigator.clipboard.writeText(btn.dataset.copy);
+    const de = btn.querySelector('.de-action');
+    const origText = de.textContent;
+    de.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      de.textContent = origText;
+      btn.classList.remove('copied');
+    }, 2000);
+  }
+});
 
 // ── SCROLL REVEAL ──
 const observer = new IntersectionObserver(entries => {
