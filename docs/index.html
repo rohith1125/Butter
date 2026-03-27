@@ -3,35 +3,132 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Butter Bear — VS Code Theme + Companion</title>
+  <title>Butter Bear — Warm Golden Themes + Status Bar Companion</title>
   <meta name="description" content="10 warm golden VS Code themes + a bear that lives in your status bar. Feed it. Watch it grow. Prestige." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #1e1b12;
-      --bg2: #252015;
-      --bg3: #2a2416;
-      --border: #4a4438;
-      --fg: #e8dfc8;
-      --fg2: #c8bc9c;
-      --fg3: #8a8070;
-      --amber: #c9a227;
+      --bg:     #1a1710;
+      --bg2:    #221f14;
+      --bg3:    #2a2618;
+      --bg4:    #312d1c;
+      --border: #3a3628;
+      --border2:#4a4538;
+      --fg:     #ede4cc;
+      --fg2:    #c0b490;
+      --fg3:    #7a7060;
+      --amber:  #c9a227;
       --amber2: #e8c870;
+      --amber3: #f5d98a;
       --orange: #d4956a;
-      --green: #7ab860;
-      --red: #c85050;
-      --blue: #60a8b0;
-      --radius: 12px;
+      --green:  #7ab860;
+      --red:    #c85050;
+      --blue:   #60a8b0;
+      --radius: 14px;
+      --radius-lg: 20px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
       color: var(--fg);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      background: rgba(26, 23, 16, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201, 162, 39, 0.12);
+      transition: background 0.3s;
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--fg);
+      text-decoration: none;
+      white-space: nowrap;
+      letter-spacing: -0.3px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      flex: 1;
+    }
+    .nav-links a {
+      color: var(--fg3);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links a:hover { color: var(--fg); background: var(--bg3); }
+    .nav-right { display: flex; gap: 8px; align-items: center; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+      border: none;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: var(--amber);
+      color: #14110a;
+      box-shadow: 0 2px 16px rgba(201,162,39,0.35);
+    }
+    .btn-primary:hover { background: var(--amber2); box-shadow: 0 4px 24px rgba(201,162,39,0.5); }
+    .btn-secondary {
+      background: var(--bg3);
+      color: var(--fg2);
+      border: 1px solid var(--border2);
+    }
+    .btn-secondary:hover { border-color: var(--amber); color: var(--fg); }
+    .btn-sm { padding: 7px 16px; font-size: 13px; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--fg3);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { color: var(--fg); border-color: var(--border2); }
 
     /* ── HERO ── */
     .hero {
@@ -41,125 +138,199 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 60px 24px;
+      padding: 100px 24px 80px;
       position: relative;
-      background: radial-gradient(ellipse at 50% 0%, #2e2610 0%, var(--bg) 60%);
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,162,39,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 80% 60%, rgba(212,149,106,0.06) 0%, transparent 50%),
+        var(--bg);
+      z-index: 0;
+    }
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,162,39,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,162,39,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      z-index: 0;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 70%);
+    }
+    .hero > * { position: relative; z-index: 1; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(201,162,39,0.1);
+      border: 1px solid rgba(201,162,39,0.25);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--amber2);
+      letter-spacing: 0.3px;
+      margin-bottom: 28px;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--amber);
+      box-shadow: 0 0 8px var(--amber);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.8); }
     }
 
     .bear-big {
-      font-size: 100px;
+      font-size: 96px;
       line-height: 1;
       animation: float 4s ease-in-out infinite;
       cursor: pointer;
       user-select: none;
-      filter: drop-shadow(0 0 40px #c9a22740);
+      filter: drop-shadow(0 0 48px rgba(201,162,39,0.3));
       transition: filter 0.3s;
+      margin-bottom: 28px;
     }
-    .bear-big:hover { filter: drop-shadow(0 0 60px #c9a22780); }
-    .bear-big:active { transform: scale(0.92); }
+    .bear-big:hover { filter: drop-shadow(0 0 64px rgba(201,162,39,0.5)); }
+    .bear-big:active { transform: scale(0.92) translateY(0) !important; }
 
     @keyframes float {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-12px); }
+      50% { transform: translateY(-14px); }
     }
 
     .hero h1 {
-      font-size: clamp(2.4rem, 6vw, 4rem);
-      font-weight: 800;
-      margin: 24px 0 12px;
-      background: linear-gradient(135deg, var(--amber2), var(--amber), var(--orange));
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      line-height: 1.05;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--amber3) 0%, var(--amber) 50%, var(--orange) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    .hero .tagline {
-      font-size: clamp(1rem, 2.5vw, 1.3rem);
+    .hero-tagline {
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
       color: var(--fg2);
-      max-width: 520px;
-      margin: 0 auto 40px;
+      max-width: 480px;
+      margin: 0 auto 12px;
+      font-weight: 400;
+      line-height: 1.7;
+    }
+    .hero-sub {
+      font-size: 13px;
+      color: var(--fg3);
+      margin-bottom: 36px;
+      letter-spacing: 0.2px;
     }
 
-    .cta-group { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 28px;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform 0.15s, box-shadow 0.15s;
-      border: none;
-    }
-    .btn:hover { transform: translateY(-2px); }
-    .btn-primary {
-      background: var(--amber);
-      color: #16130d;
-      box-shadow: 0 4px 24px #c9a22740;
-    }
-    .btn-primary:hover { box-shadow: 0 8px 32px #c9a22770; }
-    .btn-secondary {
-      background: var(--bg2);
-      color: var(--fg);
-      border: 1px solid var(--border);
-    }
+    .cta-group { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 
     .status-bar-preview {
-      margin-top: 48px;
-      background: #13110b;
-      border: 1px solid var(--border);
+      margin-top: 52px;
+      background: rgba(13, 11, 7, 0.8);
+      border: 1px solid var(--border2);
       border-radius: var(--radius);
       padding: 10px 20px;
-      font-family: 'SF Mono', 'Fira Code', monospace;
-      font-size: 13px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
       color: var(--fg2);
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      max-width: 400px;
+      width: 100%;
+    }
+    .status-bear { color: var(--amber); font-size: 15px; }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg2);
+      padding: 20px 24px;
+    }
+    .stats-inner {
+      max-width: 900px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
-      gap: 16px;
-      animation: statusCycle 8s ease-in-out infinite;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
     }
-    .status-bear { color: var(--amber); font-size: 16px; }
-
-    @keyframes statusCycle {
-      0%,15%  { opacity: 1; }
-      20%,35% { opacity: 0.3; }
-      40%,55% { opacity: 1; }
-      60%,75% { opacity: 0.3; }
-      80%,100%{ opacity: 1; }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 40px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--amber);
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--fg3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
     }
 
-    /* ── SECTION ── */
-    section {
-      padding: 80px 24px;
+    /* ── SECTIONS ── */
+    .section {
+      padding: 96px 24px;
       max-width: 1100px;
       margin: 0 auto;
     }
-
     .section-label {
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 3px;
       text-transform: uppercase;
       color: var(--amber);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-
+    .section-label::before {
+      content: '';
+      width: 20px;
+      height: 1px;
+      background: var(--amber);
+    }
     h2 {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-size: clamp(1.7rem, 3.5vw, 2.6rem);
       font-weight: 800;
+      letter-spacing: -0.8px;
+      line-height: 1.15;
       color: var(--fg);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
-
     .subtitle {
       color: var(--fg2);
-      font-size: 1.05rem;
+      font-size: 1rem;
+      line-height: 1.7;
       margin-bottom: 48px;
-      max-width: 600px;
+      max-width: 560px;
     }
 
     /* ── THEME SWITCHER ── */
@@ -168,238 +339,193 @@
     .theme-tabs {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 24px;
+      gap: 6px;
+      margin-bottom: 20px;
     }
-
     .theme-tab {
-      padding: 8px 16px;
-      border-radius: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
       border: 1px solid var(--border);
       background: var(--bg2);
-      color: var(--fg2);
+      color: var(--fg3);
       cursor: pointer;
-      font-size: 13px;
-      font-weight: 500;
+      font-size: 12px;
+      font-weight: 600;
       transition: all 0.15s;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
+      font-family: inherit;
     }
-    .theme-tab:hover { border-color: var(--amber); color: var(--fg); }
+    .theme-tab:hover { border-color: var(--border2); color: var(--fg2); }
     .theme-tab.active {
-      background: var(--bg3);
+      background: var(--bg4);
       border-color: var(--amber);
       color: var(--amber);
+      box-shadow: 0 0 0 1px rgba(201,162,39,0.15);
     }
 
     .code-window {
-      border-radius: var(--radius);
+      border-radius: var(--radius-lg);
       overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 0 20px 60px #00000060;
-      transition: all 0.3s ease;
+      border: 1px solid var(--border2);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,162,39,0.05);
+      transition: all 0.35s ease;
     }
-
     .code-titlebar {
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 16px;
-      background: #13110b;
+      padding: 11px 16px;
+      background: rgba(13,11,7,0.9);
+      border-bottom: 1px solid var(--border);
     }
     .dot { width: 12px; height: 12px; border-radius: 50%; }
     .dot-red { background: #ff5f57; }
     .dot-yellow { background: #febc2e; }
     .dot-green { background: #28c840; }
-    .file-name { font-family: monospace; font-size: 12px; color: var(--fg3); margin-left: 8px; }
-
+    .file-name { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--fg3); margin-left: 8px; }
     .code-body {
-      padding: 24px;
-      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
-      font-size: 14px;
-      line-height: 1.8;
+      padding: 28px 32px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      line-height: 1.9;
       overflow-x: auto;
       transition: background 0.3s, color 0.3s;
     }
-
-    .ln { color: var(--fg3); user-select: none; margin-right: 20px; font-size: 12px; }
+    .ln { color: var(--fg3); user-select: none; margin-right: 24px; font-size: 12px; opacity: 0.5; }
     .kw { font-weight: 600; }
-    .cm { font-style: italic; }
+    .cm { font-style: italic; opacity: 0.75; }
 
-    /* ── BEAR SECTION ── */
-    .bear-stages {
+    /* ── BEAR EVOLUTION ── */
+    .evolution-track {
+      position: relative;
       display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin: 32px 0;
+      align-items: flex-start;
+      gap: 0;
+      margin: 40px 0;
+      overflow-x: auto;
+      padding-bottom: 8px;
     }
-
-    .stage-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      text-align: center;
+    .evolution-track::before {
+      content: '';
+      position: absolute;
+      top: 36px;
+      left: 60px;
+      right: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--border2), var(--amber) 50%, var(--border2));
+      z-index: 0;
+    }
+    .evo-step {
       flex: 1;
       min-width: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .evo-emoji-wrap {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--bg2);
+      border: 2px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
       transition: all 0.2s;
       cursor: default;
     }
-    .stage-card:hover {
+    .evo-step:hover .evo-emoji-wrap {
       border-color: var(--amber);
+      background: var(--bg3);
+      box-shadow: 0 0 20px rgba(201,162,39,0.2);
       transform: translateY(-4px);
-      box-shadow: 0 8px 24px #c9a22720;
     }
-    .stage-card .emoji { font-size: 36px; display: block; margin-bottom: 8px; }
-    .stage-card .name { font-size: 12px; color: var(--fg2); font-weight: 600; }
-    .stage-card .xp { font-size: 11px; color: var(--fg3); margin-top: 4px; }
-
-    .arrow { color: var(--amber); font-size: 20px; flex-shrink: 0; }
+    .evo-step.legend .evo-emoji-wrap {
+      border-color: var(--amber);
+      background: linear-gradient(135deg, var(--bg3), var(--bg4));
+      box-shadow: 0 0 24px rgba(201,162,39,0.25);
+    }
+    .evo-name { font-size: 11px; font-weight: 700; color: var(--fg2); text-align: center; }
+    .evo-xp { font-size: 10px; color: var(--fg3); }
+    .evo-step.legend .evo-name { color: var(--amber); }
 
     .prestige-box {
-      background: linear-gradient(135deg, #2a2010, #1e1b12);
-      border: 1px solid var(--amber);
-      border-radius: var(--radius);
-      padding: 24px;
+      background: linear-gradient(135deg, rgba(42,32,16,0.8), rgba(30,27,18,0.8));
+      border: 1px solid rgba(201,162,39,0.3);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
       margin-top: 32px;
       display: flex;
       align-items: center;
       gap: 20px;
       flex-wrap: wrap;
+      box-shadow: 0 0 0 1px rgba(201,162,39,0.05), inset 0 1px 0 rgba(201,162,39,0.1);
     }
-    .prestige-icon { font-size: 48px; }
-    .prestige-text h3 { color: var(--amber); font-size: 1.1rem; margin-bottom: 6px; }
-    .prestige-text p { color: var(--fg2); font-size: 14px; }
+    .prestige-icon { font-size: 44px; }
+    .prestige-text h3 { color: var(--amber2); font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .prestige-text p { color: var(--fg2); font-size: 13.5px; line-height: 1.6; }
 
-    /* ── HONEY MECHANIC ── */
-    .mechanic-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-top: 32px;
-    }
-
-    .mechanic-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      transition: border-color 0.2s;
-    }
-    .mechanic-card:hover { border-color: var(--amber); }
-    .mechanic-card .icon { font-size: 32px; margin-bottom: 12px; }
-    .mechanic-card h3 { font-size: 15px; margin-bottom: 6px; color: var(--fg); }
-    .mechanic-card p { font-size: 13px; color: var(--fg2); }
-
-    /* ── INSTALL ── */
-    .install-section {
-      background: linear-gradient(135deg, #201c10, #1a1812);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 60px 40px;
-      text-align: center;
-    }
-
-    .install-bear { font-size: 64px; margin-bottom: 16px; animation: float 3s ease-in-out infinite; }
-
-    .code-block {
-      background: #13110b;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 16px 24px;
-      font-family: monospace;
-      font-size: 14px;
-      color: var(--amber2);
-      display: inline-block;
-      margin: 24px 0;
-      cursor: pointer;
-      transition: border-color 0.2s;
-      position: relative;
-    }
-    .code-block:hover { border-color: var(--amber); }
-    .code-block::after {
-      content: 'click to copy';
-      position: absolute;
-      top: -22px;
-      right: 8px;
-      font-size: 10px;
-      color: var(--fg3);
-      font-family: sans-serif;
-    }
-
-    /* ── DARCULA PRINCIPLES ── */
-    .principles-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-      margin-top: 32px;
-    }
-
-    .principle {
-      background: var(--bg2);
-      border-left: 3px solid var(--amber);
-      border-radius: 0 var(--radius) var(--radius) 0;
-      padding: 20px;
-    }
-    .principle h3 { font-size: 14px; color: var(--amber); margin-bottom: 6px; }
-    .principle p { font-size: 13px; color: var(--fg2); }
-
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 40px 24px;
-      color: var(--fg3);
-      font-size: 13px;
-      border-top: 1px solid var(--border);
-    }
-    footer a { color: var(--amber); text-decoration: none; }
-
-    /* ── FEED MINI GAME ── */
+    /* ── MINI GAME ── */
     .feed-game {
       background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 32px;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius-lg);
+      padding: 48px 32px;
       text-align: center;
       margin-top: 32px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
     }
-    .feed-bear { font-size: 72px; transition: transform 0.1s; cursor: pointer; display: inline-block; }
+    .feed-bear {
+      font-size: 80px;
+      transition: transform 0.1s;
+      cursor: pointer;
+      display: inline-block;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+    }
     .feed-bear:active { transform: scale(0.85); }
+    .honey-count { font-size: 2rem; color: var(--amber); font-weight: 800; margin-top: 16px; letter-spacing: -0.5px; }
+    .honey-label { font-size: 12px; color: var(--fg3); margin-top: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
     .honey-bar {
       width: 100%;
-      max-width: 300px;
-      height: 12px;
+      max-width: 280px;
+      height: 8px;
       background: var(--bg3);
-      border-radius: 6px;
-      margin: 16px auto;
+      border-radius: 4px;
+      margin: 18px auto 8px;
       overflow: hidden;
     }
     .honey-fill {
       height: 100%;
       background: linear-gradient(90deg, var(--amber), var(--amber2));
-      border-radius: 6px;
-      transition: width 0.3s ease;
+      border-radius: 4px;
+      transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       width: 40%;
     }
-    .honey-count { font-size: 24px; color: var(--amber); font-weight: 700; }
-    .honey-label { font-size: 13px; color: var(--fg3); margin-top: 4px; }
+    #xpLabel { font-size: 11px; color: var(--fg3); margin-bottom: 20px; font-family: 'JetBrains Mono', monospace; }
     .feed-btn {
       display: inline-block;
-      margin-top: 16px;
-      padding: 10px 24px;
+      margin-top: 8px;
+      padding: 12px 28px;
       background: var(--amber);
-      color: #16130d;
-      border-radius: 6px;
-      font-weight: 600;
+      color: #14110a;
+      border-radius: 8px;
+      font-weight: 700;
       cursor: pointer;
       border: none;
       font-size: 14px;
-      transition: transform 0.1s, box-shadow 0.2s;
+      font-family: inherit;
+      transition: transform 0.1s, box-shadow 0.2s, background 0.15s;
+      box-shadow: 0 4px 16px rgba(201,162,39,0.3);
     }
-    .feed-btn:hover { box-shadow: 0 4px 16px #c9a22760; transform: translateY(-1px); }
+    .feed-btn:hover { box-shadow: 0 6px 24px rgba(201,162,39,0.5); background: var(--amber2); }
     .feed-btn:active { transform: scale(0.95); }
+
     .float-honey {
       position: fixed;
       pointer-events: none;
@@ -409,48 +535,285 @@
     }
     @keyframes floatUp {
       0% { opacity: 1; transform: translateY(0) scale(1); }
-      100% { opacity: 0; transform: translateY(-80px) scale(1.4); }
+      100% { opacity: 0; transform: translateY(-90px) scale(1.5); }
+    }
+
+    /* ── MECHANICS ── */
+    .mechanic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+      margin-top: 40px;
+    }
+    .mechanic-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .mechanic-card:hover {
+      border-color: rgba(201,162,39,0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.2), 0 0 0 1px rgba(201,162,39,0.08);
+    }
+    .mechanic-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+    .mechanic-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: var(--fg); }
+    .mechanic-card p { font-size: 13px; color: var(--fg2); line-height: 1.65; }
+
+    /* ── PHILOSOPHY ── */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin-top: 40px;
+    }
+    .principle {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: border-color 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .principle::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--amber), transparent);
+    }
+    .principle:hover { border-color: rgba(201,162,39,0.35); }
+    .principle h3 { font-size: 13px; font-weight: 700; color: var(--amber2); margin-bottom: 8px; }
+    .principle p { font-size: 13px; color: var(--fg2); line-height: 1.65; }
+
+    /* ── INSTALL ── */
+    .install-wrap {
+      background: linear-gradient(135deg, var(--bg2) 0%, var(--bg) 100%);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius-lg);
+      padding: 64px 48px;
+      text-align: center;
+      box-shadow: 0 0 0 1px rgba(201,162,39,0.05), inset 0 1px 0 rgba(201,162,39,0.07);
+    }
+    .install-bear { font-size: 64px; margin-bottom: 20px; animation: float 3s ease-in-out infinite; display: inline-block; }
+
+    .editor-tabs {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 28px 0 20px;
+    }
+    .editor-tab {
+      padding: 7px 18px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg3);
+      color: var(--fg3);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .editor-tab:hover { border-color: var(--border2); color: var(--fg2); }
+    .editor-tab.active {
+      background: var(--amber);
+      color: #14110a;
+      border-color: var(--amber);
+      box-shadow: 0 2px 12px rgba(201,162,39,0.35);
+    }
+
+    .install-cmd { display: none; }
+    .install-cmd.active { display: block; }
+
+    .code-block {
+      background: rgba(13,11,7,0.9);
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      padding: 16px 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--amber2);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin: 8px 0 24px;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .code-block:hover { border-color: var(--amber); box-shadow: 0 0 0 2px rgba(201,162,39,0.1); }
+    .copy-hint {
+      font-size: 10px;
+      color: var(--fg3);
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+    }
+
+    .editors-supported {
+      font-size: 12px;
+      color: var(--fg3);
+      margin-top: 8px;
+      line-height: 1.8;
+    }
+    .editors-supported strong { color: var(--fg2); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg2);
+      padding: 40px 24px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-left { display: flex; align-items: center; gap: 16px; }
+    .footer-logo { font-size: 14px; font-weight: 700; color: var(--fg2); }
+    .footer-copy { font-size: 13px; color: var(--fg3); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 13px; color: var(--fg3); text-decoration: none; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--amber); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      .bear-stages { gap: 4px; }
-      .stage-card { min-width: 80px; padding: 14px 8px; }
-      .stage-card .emoji { font-size: 28px; }
-      .install-section { padding: 40px 20px; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .stat-item { padding: 8px 20px; }
+      .install-wrap { padding: 40px 24px; }
+      .footer-inner { justify-content: center; text-align: center; }
+      .footer-links { justify-content: center; }
+      .evolution-track::before { display: none; }
+    }
+    @media (max-width: 480px) {
+      .evo-emoji-wrap { width: 56px; height: 56px; font-size: 24px; }
+      .feed-game { padding: 32px 20px; }
     }
   </style>
 </head>
 <body>
 
+<!-- ── NAVBAR ── -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">🧈🐻 Butter Bear</a>
+    <div class="nav-links">
+      <a href="#themes">Themes</a>
+      <a href="#companion">Companion</a>
+      <a href="#mechanics">Mechanics</a>
+      <a href="#design">Design</a>
+    </div>
+    <div class="nav-right">
+      <a class="btn btn-ghost btn-sm" href="https://github.com/rohith1125/Butter" target="_blank">★ GitHub</a>
+      <a class="btn btn-primary btn-sm" href="vscode:extension/butterdev.butter-bear">Install Free</a>
+    </div>
+  </div>
+</nav>
+
 <!-- ── HERO ── -->
 <div class="hero">
-  <div class="bear-big" id="heroBear" title="Click me!">🧈🐻</div>
-  <h1>Butter Bear</h1>
-  <p class="tagline">10 warm golden themes + a bear that lives in your status bar. Feed it. Watch it grow. Prestige.</p>
-  <p style="color:var(--fg2);font-size:0.9rem;margin-top:-8px">Available on VS Code, Cursor, Kiro, VSCodium &amp; more</p>
-  <div class="cta-group">
-    <a class="btn btn-primary" href="vscode:extension/butterdev.butter-bear">
-      ⬇️ Install
-    </a>
-    <a class="btn btn-secondary" href="https://github.com/rohith1125/Butter" target="_blank">
-      ★ GitHub
-    </a>
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-badge">
+    <span class="hero-badge-dot"></span>
+    Now on Cursor, Kiro, VSCodium &amp; more
   </div>
+
+  <div class="bear-big" id="heroBear" title="Click me!">🧈🐻</div>
+
+  <h1>Butter Bear</h1>
+  <p class="hero-tagline">10 warm golden themes + a bear that lives in your status bar. Feed it. Watch it grow. Prestige.</p>
+  <p class="hero-sub">Available on VS Code · Cursor · Kiro · VSCodium · Gitpod · Theia</p>
+
+  <div class="cta-group">
+    <a class="btn btn-primary" href="vscode:extension/butterdev.butter-bear">⬇️ Install Free</a>
+    <a class="btn btn-secondary" href="https://open-vsx.org/extension/butterdev/butter-bear" target="_blank">Open VSX</a>
+    <a class="btn btn-ghost" href="https://github.com/rohith1125/Butter" target="_blank">★ GitHub</a>
+  </div>
+
   <div class="status-bar-preview">
     <span class="status-bear">🐻</span>
     <span id="statusMsg">In the zone.</span>
-    <span style="margin-left:auto;color:var(--fg3)">⌨️  🍯 12</span>
+    <span style="margin-left:auto;color:var(--fg3);font-size:11px">⌨️  🍯 12</span>
+  </div>
+</div>
+
+<!-- ── STATS STRIP ── -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-num">10</span>
+      <span class="stat-label">Themes</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">5</span>
+      <span class="stat-label">Bear Stages</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">∞</span>
+      <span class="stat-label">Prestige Levels</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">6+</span>
+      <span class="stat-label">Editors Supported</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">MIT</span>
+      <span class="stat-label">Open Source</span>
+    </div>
   </div>
 </div>
 
 <!-- ── THEMES ── -->
-<section>
+<section class="section" id="themes">
   <div class="section-label">Themes</div>
-  <h2>10 themes. One identity.</h2>
-  <p class="subtitle">Every variant keeps amber as the keyword color — the Butter Bear thread. Darcula-calibrated for all-day comfort.</p>
+  <h2 class="reveal">10 themes. One identity.</h2>
+  <p class="subtitle reveal reveal-delay-1">Every variant keeps amber as the keyword color — the Butter Bear thread. Darcula-calibrated for all-day comfort.</p>
 
-  <div class="theme-switcher">
+  <div class="theme-switcher reveal reveal-delay-2">
     <div class="theme-tabs" id="themeTabs"></div>
     <div class="code-window" id="codeWindow">
       <div class="code-titlebar">
@@ -464,45 +827,43 @@
   </div>
 </section>
 
-<!-- ── BEAR ── -->
-<section>
-  <div class="section-label">The Companion</div>
-  <h2>A bear that grows with you.</h2>
-  <p class="subtitle">Five stages. Then prestige. The cycle continues.</p>
+<hr class="section-divider" />
 
-  <div class="bear-stages">
-    <div class="stage-card">
-      <span class="emoji">🐣</span>
-      <div class="name">Newborn Cub</div>
-      <div class="xp">0 XP</div>
+<!-- ── BEAR COMPANION ── -->
+<section class="section" id="companion">
+  <div class="section-label">The Companion</div>
+  <h2 class="reveal">A bear that grows with you.</h2>
+  <p class="subtitle reveal reveal-delay-1">Five stages, then prestige. The cycle never ends.</p>
+
+  <div class="evolution-track reveal reveal-delay-2">
+    <div class="evo-step">
+      <div class="evo-emoji-wrap">🐣</div>
+      <div class="evo-name">Newborn Cub</div>
+      <div class="evo-xp">0 XP</div>
     </div>
-    <div class="arrow">→</div>
-    <div class="stage-card">
-      <span class="emoji">🐻</span>
-      <div class="name">Tiny Cub</div>
-      <div class="xp">200 XP</div>
+    <div class="evo-step">
+      <div class="evo-emoji-wrap">🐻</div>
+      <div class="evo-name">Tiny Cub</div>
+      <div class="evo-xp">200 XP</div>
     </div>
-    <div class="arrow">→</div>
-    <div class="stage-card">
-      <span class="emoji">🧸</span>
-      <div class="name">Young Bear</div>
-      <div class="xp">700 XP</div>
+    <div class="evo-step">
+      <div class="evo-emoji-wrap">🧸</div>
+      <div class="evo-name">Young Bear</div>
+      <div class="evo-xp">700 XP</div>
     </div>
-    <div class="arrow">→</div>
-    <div class="stage-card">
-      <span class="emoji">🐻‍❄️</span>
-      <div class="name">Adult Bear</div>
-      <div class="xp">1700 XP</div>
+    <div class="evo-step">
+      <div class="evo-emoji-wrap">🐻‍❄️</div>
+      <div class="evo-name">Adult Bear</div>
+      <div class="evo-xp">1700 XP</div>
     </div>
-    <div class="arrow">→</div>
-    <div class="stage-card" style="border-color: var(--amber)">
-      <span class="emoji">👑🐻</span>
-      <div class="name">Legend Bear</div>
-      <div class="xp" style="color:var(--amber)">3700 XP</div>
+    <div class="evo-step legend">
+      <div class="evo-emoji-wrap">👑🐻</div>
+      <div class="evo-name">Legend Bear</div>
+      <div class="evo-xp">3700 XP</div>
     </div>
   </div>
 
-  <div class="prestige-box">
+  <div class="prestige-box reveal reveal-delay-3">
     <div class="prestige-icon">🌟</div>
     <div class="prestige-text">
       <h3>Prestige System</h3>
@@ -511,102 +872,158 @@
   </div>
 </section>
 
-<!-- ── MINI GAME ── -->
-<section>
-  <div class="section-label">Try It</div>
-  <h2>Feed the bear.</h2>
-  <p class="subtitle">In VS Code, honey is earned by coding. Here, you can just click.</p>
+<hr class="section-divider" />
 
-  <div class="feed-game">
+<!-- ── MINI GAME ── -->
+<section class="section">
+  <div class="section-label">Try It</div>
+  <h2 class="reveal">Feed the bear.</h2>
+  <p class="subtitle reveal reveal-delay-1">In VS Code, honey is earned by coding. Here, you can just click.</p>
+
+  <div class="feed-game reveal reveal-delay-2">
     <div class="feed-bear" id="gameBear">🐣</div>
     <div class="honey-count" id="honeyCount">🍯 10</div>
     <div class="honey-label">honey</div>
     <div class="honey-bar"><div class="honey-fill" id="xpBar"></div></div>
-    <div style="font-size:12px;color:var(--fg3);margin-bottom:8px" id="xpLabel">0 / 200 XP — Newborn Cub</div>
+    <div id="xpLabel">0 / 200 XP — Newborn Cub</div>
     <button class="feed-btn" id="feedBtn">🍯 Feed (+1 honey)</button>
   </div>
 </section>
 
+<hr class="section-divider" />
+
 <!-- ── MECHANICS ── -->
-<section>
+<section class="section" id="mechanics">
   <div class="section-label">Mechanics</div>
-  <h2>Earn while you code.</h2>
-  <p class="subtitle">Everything you do earns XP and honey. The bear never judges idle time.</p>
+  <h2 class="reveal">Earn while you code.</h2>
+  <p class="subtitle reveal reveal-delay-1">Everything you do earns XP and honey. The bear never judges idle time.</p>
 
   <div class="mechanic-grid">
-    <div class="mechanic-card">
-      <div class="icon">⌨️</div>
+    <div class="mechanic-card reveal">
+      <div class="mechanic-icon-wrap">⌨️</div>
       <h3>Keystrokes</h3>
       <p>Every 50 keystrokes earns 1 honey. XP accrues per character typed.</p>
     </div>
-    <div class="mechanic-card">
-      <div class="icon">💾</div>
+    <div class="mechanic-card reveal reveal-delay-1">
+      <div class="mechanic-icon-wrap">💾</div>
       <h3>Saving</h3>
-      <p>Each save earns 1 honey + 10 XP. Clean saves (zero errors) trigger a celebration.</p>
+      <p>Each save earns 1 honey + 10 XP. Clean saves with zero errors trigger a celebration.</p>
     </div>
-    <div class="mechanic-card">
-      <div class="icon">🔧</div>
+    <div class="mechanic-card reveal reveal-delay-2">
+      <div class="mechanic-icon-wrap">🔧</div>
       <h3>Fixing Errors</h3>
       <p>Each error fixed earns 2 honey + 25 XP. The bear appreciates good debugging.</p>
     </div>
-    <div class="mechanic-card">
-      <div class="icon">🍯</div>
+    <div class="mechanic-card reveal reveal-delay-3">
+      <div class="mechanic-icon-wrap">🍯</div>
       <h3>Feeding</h3>
       <p>Spend honey for XP. 3× multiplier when starving. Keeps hunger up so the bear stays happy.</p>
     </div>
   </div>
 </section>
 
+<hr class="section-divider" />
+
 <!-- ── PHILOSOPHY ── -->
-<section>
-  <div class="section-label">Design</div>
-  <h2>"Does this hurt after four hours?"</h2>
-  <p class="subtitle">Every Butter theme follows four principles from JetBrains' Darcula — the most-loved dark theme in professional IDEs.</p>
+<section class="section" id="design">
+  <div class="section-label">Design Philosophy</div>
+  <h2 class="reveal">"Does this hurt after four hours?"</h2>
+  <p class="subtitle reveal reveal-delay-1">Every Butter theme follows four principles from JetBrains' Darcula — the most-loved dark theme in professional IDEs.</p>
 
   <div class="principles-grid">
-    <div class="principle">
+    <div class="principle reveal">
       <h3>Never pure black</h3>
       <p>Warm-tinted medium-dark backgrounds reduce eye strain. Pure black causes "halation" — text appears to glow on dark backgrounds.</p>
     </div>
-    <div class="principle">
+    <div class="principle reveal reveal-delay-1">
       <h3>Never pure white text</h3>
       <p>Cream/muted foreground at ~5.5:1 contrast. Passes WCAG AA without burning your eyes on late nights.</p>
     </div>
-    <div class="principle">
+    <div class="principle reveal reveal-delay-2">
       <h3>Functionally distinct syntax</h3>
       <p>Each token type gets its own color family. Your brain learns the pattern — reading speed increases over time.</p>
     </div>
-    <div class="principle">
+    <div class="principle reveal reveal-delay-3">
       <h3>Muted base, vivid accents</h3>
       <p>Desaturated backgrounds let amber syntax pop without neon glare. AMOLED and HC are intentional exceptions.</p>
     </div>
   </div>
 </section>
 
+<hr class="section-divider" />
+
 <!-- ── INSTALL ── -->
-<section>
-  <div class="install-section">
+<section class="section">
+  <div class="install-wrap reveal">
     <div class="install-bear">🧈🐻</div>
-    <h2 style="margin-bottom:12px">Ready to install?</h2>
-    <p style="color:var(--fg2);max-width:500px;margin:0 auto">Works on <strong>VS Code, Cursor, Kiro, VSCodium, Gitpod, Theia</strong> and any editor using the Open VSX Registry.</p>
-    <br/>
-    <p style="color:var(--fg2);max-width:400px;margin:0 auto;font-size:0.9rem">Search <strong>"Butter Bear"</strong> in your editor's Extensions panel, or run:</p>
-    <div class="code-block" onclick="copyInstall(this)">
-      code --install-extension butterdev.butter-bear
+    <h2 style="margin-bottom:10px">Ready to install?</h2>
+    <p style="color:var(--fg2);max-width:480px;margin:0 auto;font-size:0.95rem">Pick your editor — Butter Bear works everywhere.</p>
+
+    <div class="editor-tabs" id="editorTabs">
+      <button class="editor-tab active" data-editor="vscode">VS Code</button>
+      <button class="editor-tab" data-editor="cursor">Cursor</button>
+      <button class="editor-tab" data-editor="kiro">Kiro</button>
+      <button class="editor-tab" data-editor="vscodium">VSCodium</button>
+      <button class="editor-tab" data-editor="other">Other</button>
     </div>
-    <br/>
-    <div class="cta-group" style="justify-content:center">
-      <a class="btn btn-primary" href="vscode:extension/butterdev.butter-bear">⬇️ Install</a>
-      <a class="btn btn-secondary" href="https://open-vsx.org/extension/butterdev/butter-bear" target="_blank">Open VSX</a>
-      <a class="btn btn-secondary" href="https://github.com/rohith1125/Butter" target="_blank">★ GitHub</a>
+
+    <div class="install-cmd active" data-editor="vscode">
+      <div class="code-block" onclick="copyInstall(this, 'code --install-extension butterdev.butter-bear')">
+        <span>code --install-extension butterdev.butter-bear</span>
+        <span class="copy-hint">click to copy</span>
+      </div>
+    </div>
+    <div class="install-cmd" data-editor="cursor">
+      <div class="code-block" onclick="copyInstall(this, 'cursor --install-extension butterdev.butter-bear')">
+        <span>cursor --install-extension butterdev.butter-bear</span>
+        <span class="copy-hint">click to copy</span>
+      </div>
+    </div>
+    <div class="install-cmd" data-editor="kiro">
+      <div class="code-block" onclick="copyInstall(this, 'kiro --install-extension butterdev.butter-bear')">
+        <span>kiro --install-extension butterdev.butter-bear</span>
+        <span class="copy-hint">click to copy</span>
+      </div>
+    </div>
+    <div class="install-cmd" data-editor="vscodium">
+      <div class="code-block" onclick="copyInstall(this, 'codium --install-extension butterdev.butter-bear')">
+        <span>codium --install-extension butterdev.butter-bear</span>
+        <span class="copy-hint">click to copy</span>
+      </div>
+    </div>
+    <div class="install-cmd" data-editor="other">
+      <div class="code-block" onclick="copyInstall(this, 'butterdev.butter-bear')">
+        <span>Search "Butter Bear" in your Extensions panel</span>
+        <span class="copy-hint">click to copy ID</span>
+      </div>
+    </div>
+
+    <p class="editors-supported">
+      Also available on <strong>Gitpod</strong> · <strong>Eclipse Theia</strong> · <strong>Coder</strong> · <strong>OpenShift Dev Spaces</strong>
+      — any editor using the <a href="https://open-vsx.org/extension/butterdev/butter-bear" target="_blank" style="color:var(--amber);text-decoration:none">Open VSX Registry</a>
+    </p>
+
+    <div class="cta-group" style="justify-content:center;margin-top:28px">
+      <a class="btn btn-primary" href="vscode:extension/butterdev.butter-bear">⬇️ Install for VS Code</a>
+      <a class="btn btn-secondary" href="https://open-vsx.org/extension/butterdev/butter-bear" target="_blank">Open VSX Listing</a>
     </div>
   </div>
 </section>
 
+<!-- ── FOOTER ── -->
 <footer>
-  Made with 🧈 by <a href="https://github.com/rohith1125" target="_blank">rohith1125</a> ·
-  <a href="https://github.com/rohith1125/Butter" target="_blank">Open Source</a> ·
-  MIT License
+  <div class="footer-inner">
+    <div class="footer-left">
+      <span class="footer-logo">🧈🐻 Butter Bear</span>
+      <span class="footer-copy">MIT License</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/rohith1125/Butter" target="_blank">GitHub</a>
+      <a href="https://open-vsx.org/extension/butterdev/butter-bear" target="_blank">Open VSX</a>
+      <a href="https://github.com/rohith1125/Butter/blob/main/CHANGELOG.md" target="_blank">Changelog</a>
+      <a href="https://github.com/rohith1125" target="_blank">@rohith1125</a>
+    </div>
+  </div>
 </footer>
 
 <script>
@@ -686,23 +1103,22 @@ function renderCode(t) {
 function applyTheme(t) {
   activeTheme = t;
   const body = document.getElementById('codeBody');
-  const win = document.getElementById('codeWindow');
+  const win  = document.getElementById('codeWindow');
   body.style.background = t.bg;
   body.style.color = t.fg;
-  win.style.borderColor = t.dot + '60';
+  win.style.borderColor = t.dot + '50';
   body.innerHTML = renderCode(t);
   document.querySelectorAll('.theme-tab').forEach(el => {
     el.classList.toggle('active', el.dataset.id === t.id);
   });
 }
 
-// Build tabs
 const tabContainer = document.getElementById('themeTabs');
 themes.forEach(t => {
   const tab = document.createElement('button');
   tab.className = 'theme-tab';
   tab.dataset.id = t.id;
-  tab.innerHTML = `<span style="width:8px;height:8px;border-radius:50%;background:${t.dot};display:inline-block"></span> ${t.label}`;
+  tab.innerHTML = `<span style="width:8px;height:8px;border-radius:50%;background:${t.dot};flex-shrink:0;display:inline-block"></span>${t.label}`;
   tab.onclick = () => applyTheme(t);
   tabContainer.appendChild(tab);
 });
@@ -711,7 +1127,7 @@ applyTheme(themes[0]);
 // ── HERO STATUS BAR ──
 const statusMessages = [
   'In the zone.', 'Keep going!', 'Saved! ✨', '*happy wiggle*',
-  'Build passing 🎉', 'No errors. Dreamy.', 'Ship it!',
+  'Build passing 🎉', 'No errors. Dreamy.', 'Ship it! 🚀',
 ];
 let msgIdx = 0;
 setInterval(() => {
@@ -754,7 +1170,6 @@ function updateGame() {
   const stars = gamePrestige > 0 ? prestigeEmojis[Math.min(gamePrestige - 1, 2)] : '';
   document.getElementById('gameBear').textContent = stars + stage.emoji;
   document.getElementById('honeyCount').textContent = '🍯 ' + gameHoney;
-
   const xpInStage = gameXPTotal - xpThresholds[gameStageIdx];
   const xpNeeded = stage.xpNeeded;
   const pct = Math.min((xpInStage / xpNeeded) * 100, 100);
@@ -766,16 +1181,12 @@ document.getElementById('feedBtn').onclick = function() {
   gameHoney++;
   const xpGain = 15;
   gameXPTotal += xpGain;
-
-  // Check level up
   const newIdx = getStageIdx(gameXPTotal);
   if (newIdx > gameStageIdx) {
     gameStageIdx = newIdx;
     this.textContent = '🎉 Level Up! Keep feeding!';
     setTimeout(() => { this.textContent = '🍯 Feed (+1 honey)'; }, 2000);
   }
-
-  // Check prestige
   if (gameStageIdx === stages.length - 1 && (gameXPTotal - xpThresholds[4]) >= 5000) {
     gamePrestige++;
     gameXPTotal = 0;
@@ -783,7 +1194,6 @@ document.getElementById('feedBtn').onclick = function() {
     this.textContent = '🌟 PRESTIGE! Starting over...';
     setTimeout(() => { this.textContent = '🍯 Feed (+1 honey)'; }, 3000);
   }
-
   spawnHoney(this.getBoundingClientRect().left + this.offsetWidth / 2, this.getBoundingClientRect().top);
   updateGame();
 };
@@ -800,15 +1210,36 @@ function spawnHoney(x, y) {
 
 updateGame();
 
+// ── EDITOR TABS ──
+document.getElementById('editorTabs').addEventListener('click', e => {
+  const btn = e.target.closest('.editor-tab');
+  if (!btn) return;
+  const ed = btn.dataset.editor;
+  document.querySelectorAll('.editor-tab').forEach(b => b.classList.toggle('active', b.dataset.editor === ed));
+  document.querySelectorAll('.install-cmd').forEach(c => c.classList.toggle('active', c.dataset.editor === ed));
+});
+
 // ── COPY INSTALL ──
-function copyInstall(el) {
-  navigator.clipboard.writeText('code --install-extension butterdev.butter-bear');
-  el.style.borderColor = '#7ab860';
-  el.querySelector ? null : null;
+function copyInstall(el, text) {
+  const t = text || el.querySelector('span')?.textContent?.trim() || '';
+  navigator.clipboard.writeText(t);
   const orig = el.innerHTML;
-  el.innerHTML = '✓ Copied!';
+  el.innerHTML = '<span style="color:var(--green)">✓ Copied to clipboard</span>';
+  el.style.borderColor = 'var(--green)';
   setTimeout(() => { el.innerHTML = orig; el.style.borderColor = ''; }, 2000);
 }
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
