@@ -1,132 +1,110 @@
-# Butter
+# 🧈 Butter Bear
 
-> A warm golden theme with a cozy companion. Easy on your eyes, hard to uninstall.
-
-<!-- screenshots: see /docs/screenshots/ once generated -->
-
-## Why Butter
-
-Most dark themes are cold: neon purple on pure black, or blue-gray on dark navy. Beautiful for screenshots. Tiring after three hours.
-
-Butter is built on deep amber and gold — the color of warm lamp light, not a server room. Every decision asks: *does this hurt after four hours?*
-
-- **Warm, not harsh.** Golden amber instead of neon-on-black. Middle-ground contrast that doesn't fatigue.
-- **Three variants.** Dark for evening, Light for daytime, Soft for 2am.
-- **Butter Bear.** A tiny companion in your status bar that reacts to what you're doing. Optional, opt-out, never annoying.
-- **Complete coverage.** Every token defined. JS/TS, Python, Rust, Go, Ruby, Java, C/C++, CSS, HTML, Markdown, JSON, YAML, SQL — no surprises in a new language.
-- **Semantic highlighting.** Modern VS Code semantic token support fully implemented.
+> 10 warm golden themes + a bear that lives in your status bar. Feed it. Watch it grow. Prestige.
 
 ---
 
 ## Themes
 
-### Butter Dark
-The flagship. Deep amber backgrounds (`#1e1b12`), gold syntax, warm terminal. Designed for evening and long sessions. The status bar stays gold — always.
+All 10 variants share **amber keywords** as the brand anchor — warm, readable, Darcula-calibrated.
 
-### Butter Light
-Warm parchment. Like writing on good paper under a lamp. Background `#fdf8ec` (cream, not white). Dark amber syntax on warm beige. Status bar stays gold for brand consistency.
+| Theme | Vibe | Best For |
+|-------|------|----------|
+| **Butter Dark** | Deep warm amber | All-day default |
+| **Butter Light** | Warm cream | Bright environments |
+| **Butter Soft** | Desaturated amber | 2am sessions |
+| **Butter Midnight** | Navy + amber | Serious late-night |
+| **Butter Mocha** | Espresso brown | Coffee shop aesthetic |
+| **Butter Storm** | Steel blue + amber | Tokyo Night fans 🔥 |
+| **Butter Rose** | Warm rose + amber | Designers, Catppuccin fans 🔥 |
+| **Butter Forest** | Deep green + amber | Nature lovers |
+| **Butter AMOLED** | Pure black + amber | OLED battery savings 🔥 |
+| **Butter HC** | Max contrast | Accessibility (WCAG AAA) |
 
-### Butter Soft
-Same palette as Dark, pulled toward neutral. Everything desaturated ~30%. For 2am coding when even Dark feels like too much. Only the cursor stays bright gold — so you always know where you are.
-
----
-
-## Installation
-
-**Via Marketplace:**
-1. Open VS Code
-2. Go to Extensions (`Cmd+Shift+X` / `Ctrl+Shift+X`)
-3. Search "Butter"
-4. Install, select theme, done.
-
-**Via Command Palette:**
-```
-Ctrl+Shift+P → Preferences: Color Theme → Butter Dark / Butter Light / Butter Soft
-```
-
-**Switch between variants:**
-```
-Ctrl+Shift+P → Butter: Switch Butter Theme
-```
+Switch themes anytime: `Ctrl+Shift+P` → **Switch Butter Theme**
 
 ---
 
-## Butter Bear (Companion)
+## The Bear
 
-Butter Bear lives in your status bar and reacts to what you're doing.
+Butter Bear lives in your status bar and reacts to what you're doing:
 
-| What you're doing | Bear's state |
-|---|---|
-| First activation of the day | Morning greeting |
-| Actively typing | Coding |
-| Paused for ~10 seconds | Thinking |
-| Away for a while | Resting |
-| Saved with no errors | Celebrating |
-| Nothing happening | Idle |
+| State | Trigger |
+|-------|---------|
+| 🌅 Morning | First open of the day |
+| ⌨️ Coding | Typing |
+| 🤔 Thinking | 12s pause |
+| 💤 Resting | Extended idle |
+| ✨ Celebrating | Clean save (zero errors) |
+| 🍯 Hungry | Hunger drops below 30 |
+| 😭 Starving | Hunger drops below 10 |
+| 🎉 Level Up | XP threshold hit |
 
-Bear is **on by default**. To disable:
+### Growth & Prestige
 
-```json
-"butter.companion.enabled": false
+Five stages — then **prestige**. Reset to Cub, keep the stars. Repeat.
+
+```
+🐣 Newborn Cub  (0 XP)
+🐻 Tiny Cub     (200 XP)
+🧸 Young Bear   (700 XP)
+🐻‍❄️ Adult Bear  (1700 XP)
+👑 Legend Bear  (3700 XP)  ← PRESTIGE here (+5000 XP)
+       ↓
+🌟🐣 Cub again — with a star
+       ↓
+🌟👑 Legend again → 🌟🌟🐣 → ... → 🌟🌟🌟👑
 ```
 
-Click the Bear in the status bar to see the current mood.
+**Earn XP:** typing · saving · fixing errors
+**Earn honey 🍯:** 50 keystrokes = 1 · save = 1 · error fixed = 2
+**Spend honey** to feed the bear → XP bonus (3× when starving)
 
----
+### Commands
 
-## Configuration
-
-| Setting | Type | Default | Description |
-|---------|------|---------|-------------|
-| `butter.companion.enabled` | boolean | `true` | Enable/disable Butter Bear |
-| `butter.companion.activityTimeout` | number | `30000` | Ms of inactivity before resting state |
-| `butter.companion.morningGreeting` | boolean | `true` | Show morning notification |
-| `butter.companion.showMessages` | boolean | `true` | Show state-change notifications |
-
----
-
-## Commands
-
-| Command | Description |
+| Command | What it does |
 |---------|-------------|
-| `butter.switchTheme` | Quick-pick between Dark, Light, Soft |
-| `butter.toggleCompanion` | Show or hide Butter Bear |
-| `butter.companionMood` | Display current Bear mood |
+| `Butter: Feed the Bear 🍯` | Spend honey for XP |
+| `Butter: Bear Stats` | Full stats modal |
+| `Butter: Switch Butter Theme` | Pick from all 10 themes |
+| `Butter: Toggle Butter Bear` | Hide/show the status bar bear |
 
-Access via `Ctrl+Shift+P` → type "Butter".
+### Settings
 
----
-
-## Fonts That Pair Well
-
-These are free and look great with Butter's warm palette:
-
-- **JetBrains Mono** — Excellent ligatures, very readable. [Download](https://www.jetbrains.com/lp/mono/)
-- **Fira Code** — Classic ligature font, warm at any size. [Download](https://github.com/tonsky/FiraCode)
-- **Cascadia Code** — Microsoft's offering, clean and modern. [Download](https://github.com/microsoft/cascadia-code)
-
-Recommended settings:
 ```json
-"editor.fontFamily": "JetBrains Mono, Fira Code, Cascadia Code, monospace",
-"editor.fontLigatures": true,
-"editor.fontSize": 14,
-"editor.lineHeight": 1.6
+{
+  "butter.companion.enabled": true,
+  "butter.companion.morningGreeting": true,
+  "butter.companion.showMessages": true,
+  "butter.companion.activityTimeout": 30000
+}
 ```
 
 ---
 
-## Contributing
+## Design Philosophy
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for how to edit themes, test changes, and submit pull requests.
+> "Does this hurt after four hours?"
 
-Bug reports and feature requests: [GitHub Issues](https://github.com/rohithsaai/butter/issues)
+Every Butter theme follows four principles from JetBrains' Darcula:
+
+1. **Never pure black** — warm-tinted medium-dark backgrounds reduce eye strain
+2. **Never pure white text** — cream/muted foreground (~5.5:1 contrast) is the sweet spot
+3. **Functionally distinct syntax** — each token type has its own color family
+4. **Muted base, vivid accents** — amber pops without neon glare
+
+*Exceptions: AMOLED uses pure black intentionally (battery savings on OLED). HC uses maximum contrast intentionally (WCAG AAA accessibility).*
 
 ---
 
-## License
+## Install
 
-MIT — see [LICENSE](LICENSE)
+Search **"Butter Bear"** in the VS Code Extensions panel, or:
+
+```bash
+code --install-extension butterdev.butter-bear
+```
 
 ---
 
-*Built with warmth. Designed for the long session.*
+MIT License · Made with 🧈

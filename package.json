@@ -1,8 +1,8 @@
 {
   "name": "butter-bear",
   "displayName": "Butter Bear",
-  "description": "A warm golden theme + a growing bear companion. Feed it, watch it grow from cub to legend.",
-  "version": "2.1.0",
+  "description": "10 warm golden themes (Dark, Light, Soft, Midnight, Mocha, Storm, Rose, Forest, AMOLED, HC) + a growing bear companion with prestige system.",
+  "version": "3.0.0",
   "publisher": "butterdev",
   "license": "MIT",
   "icon": "butter.png",
@@ -19,19 +19,11 @@
     "url": "https://github.com/rohithsaai/butter/issues"
   },
   "keywords": [
-    "theme",
-    "color theme",
-    "warm",
-    "golden",
-    "amber",
-    "cozy",
-    "dark theme",
-    "light theme",
-    "butter",
-    "gruvbox",
-    "rose pine",
-    "catppuccin",
-    "night owl"
+    "theme", "color theme", "warm", "golden", "amber", "cozy",
+    "dark theme", "light theme", "butter", "gruvbox", "rose pine",
+    "catppuccin", "night owl", "midnight", "mocha", "storm", "rose",
+    "forest", "amoled", "high contrast", "oled", "darcula", "prestige",
+    "tokyo night", "bear", "companion", "gamification"
   ],
   "categories": [
     "Themes",
@@ -46,21 +38,16 @@
   ],
   "contributes": {
     "themes": [
-      {
-        "label": "Butter Dark",
-        "uiTheme": "vs-dark",
-        "path": "./themes/butter-dark.json"
-      },
-      {
-        "label": "Butter Light",
-        "uiTheme": "vs",
-        "path": "./themes/butter-light.json"
-      },
-      {
-        "label": "Butter Soft",
-        "uiTheme": "vs-dark",
-        "path": "./themes/butter-soft.json"
-      }
+      { "label": "Butter Dark",     "uiTheme": "vs-dark",   "path": "./themes/butter-dark.json" },
+      { "label": "Butter Light",    "uiTheme": "vs",         "path": "./themes/butter-light.json" },
+      { "label": "Butter Soft",     "uiTheme": "vs-dark",   "path": "./themes/butter-soft.json" },
+      { "label": "Butter Midnight", "uiTheme": "vs-dark",   "path": "./themes/butter-midnight.json" },
+      { "label": "Butter Mocha",    "uiTheme": "vs-dark",   "path": "./themes/butter-mocha.json" },
+      { "label": "Butter Storm",    "uiTheme": "vs-dark",   "path": "./themes/butter-storm.json" },
+      { "label": "Butter Rose",     "uiTheme": "vs-dark",   "path": "./themes/butter-rose.json" },
+      { "label": "Butter Forest",   "uiTheme": "vs-dark",   "path": "./themes/butter-forest.json" },
+      { "label": "Butter AMOLED",   "uiTheme": "vs-dark",   "path": "./themes/butter-amoled.json" },
+      { "label": "Butter HC",       "uiTheme": "hc-black",  "path": "./themes/butter-hc.json" }
     ],
     "commands": [
       {
